@@ -7,5 +7,4 @@ public interface WindowInfo {
     int DISPLAY_HEIGHT = 1440;
 
     WindowSize PREFERRED_SIZE = new WindowSize(DISPLAY_WIDTH / 5, DISPLAY_HEIGHT / 5);
-    //WindowSize ORIGINAL_SIZE = new WindowSize(DISPLAY_WIDTH , DISPLAY_HEIGHT);
 }

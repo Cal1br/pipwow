@@ -8,8 +8,8 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
 
+import java.util.Deque;
 import java.util.Map;
-import java.util.Stack;
 import java.util.TreeMap;
 
 import static cal1br.pipwow.window.WindowInfo.PREFERRED_SIZE;
@@ -28,15 +28,16 @@ public enum AltActions implements Action {
             }
         };
         actions.put(NativeKeyEvent.VC_TAB, () -> {
-            final Stack<WinDef.HWND> stack = WindowState.INSTANCE.getStack();
-            final WinDef.HWND peek = stack.peek();
-            if (peek == null) {
-                System.out.println("Nothing found");
-                return;
-            }
-            u32.SetForegroundWindow(peek);
-            WindowUtils.setFromLeft(peek, 0, 0, PREFERRED_SIZE);
-            WindowUtils.setFromRight(peek, 200, 0, PREFERRED_SIZE);
+            final Deque<WinDef.HWND> deque = WindowState.INSTANCE.getStack();
+            //todo iterator
+            final WinDef.HWND pip = deque.poll();
+            final WinDef.HWND maximized = deque.poll();
+            deque.add(maximized);
+            deque.add(pip);
+
+            u32.SetForegroundWindow(maximized);
+            WindowUtils.setFromRight(pip, 300, 300, PREFERRED_SIZE);
+            WindowUtils.maximize(maximized);
         });
         actions.put(NativeKeyEvent.VC_ESCAPE, () -> {
             try {
