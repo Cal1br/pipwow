@@ -24,7 +24,70 @@
         <artifactId>jnativehook</artifactId>
         <version>2.2.2</version>
     </dependency>
-
-
+    <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20230618</version>
+    </dependency>
 </dependencies>
+    <build>
+        <plugins>
+            <!-- any other plugins -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>cal1br.pipwow.Main</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <finalName>PiPWoW</finalName>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>2.4.1</version>
+                <executions>
+                    <execution>
+                        <id>l4j-clui</id>
+                        <phase>package</phase>
+                        <goals><goal>launch4j</goal></goals>
+                        <configuration>
+                            <headerType>console</headerType>
+                            <outfile>target/pipwow.exe</outfile>
+                            <jar>target/PiPWoW.jar</jar>
+                            <classPath>
+                                <mainClass>cal1br.pipwow.Main</mainClass>
+                                <preCp>anything</preCp>
+                            </classPath>
+                            <jre>
+                                <path>jre/</path>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>1.0.0.0</fileVersion>
+                                <fileDescription>PiPWoW!</fileDescription>
+                                <copyright>Apache 2</copyright>
+                                <productVersion>1.0.0.0</productVersion>
+                                <originalFilename>pipwow.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
