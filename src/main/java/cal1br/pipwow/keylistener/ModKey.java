@@ -6,7 +6,7 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import java.util.TreeMap;
 
 public enum ModKey {
-    VC_SHIFT(NativeKeyEvent.VC_SHIFT), VC_CONTROL(NativeKeyEvent.VC_CONTROL), VC_ALT(NativeKeyEvent.VC_ALT), VC_META(NativeKeyEvent.VC_META), VC_CONTEXT_MEN(NativeKeyEvent.VC_CONTEXT_MENU);
+    VC_ALT(NativeKeyEvent.VC_ALT), VC_CONTROL(NativeKeyEvent.VC_CONTROL), VC_META(NativeKeyEvent.VC_META), VC_CONTEXT_MEN(NativeKeyEvent.VC_CONTEXT_MENU)/*, VC_SHIFT(NativeKeyEvent.VC_SHIFT)*/;
 
 
     static final TreeMap<Integer, Integer> valueToIndexMap = new TreeMap<>();

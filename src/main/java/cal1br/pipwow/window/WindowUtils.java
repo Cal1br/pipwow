@@ -6,6 +6,8 @@ import com.sun.jna.platform.win32.WinDef;
 
 import static cal1br.pipwow.window.constant.HWNDConstant.HWND_NOTOPMOST;
 import static cal1br.pipwow.window.constant.HWNDConstant.HWND_TOPMOST;
+import static com.sun.jna.platform.win32.WinUser.SWP_ASYNCWINDOWPOS;
+import static com.sun.jna.platform.win32.WinUser.SWP_NOREDRAW;
 
 public class WindowUtils {
     private final static User32 u32 = User32.INSTANCE;
@@ -23,7 +25,13 @@ public class WindowUtils {
     }
 
     public static void maximize(final WinDef.HWND maximized) {
-        u32.SetWindowPos(maximized, HWND_NOTOPMOST, 0, 0, WindowConfiguration.INSTANCE.getDisplayWidth(), WindowConfiguration.INSTANCE.getDisplayHeight(), 0);
+        u32.SetWindowPos(maximized,
+                HWND_NOTOPMOST,
+                0,
+                0,
+                WindowConfiguration.INSTANCE.getDisplayWidth(),
+                WindowConfiguration.INSTANCE.getDisplayHeight(),
+                0x0400);
     }
 
     /**
@@ -33,6 +41,12 @@ public class WindowUtils {
         if (smallWindow == null) {
             return;
         }
-        u32.SetWindowPos(smallWindow, HWND_TOPMOST, WindowConfiguration.INSTANCE.getDisplayWidth() - WindowConfiguration.INSTANCE.getxOffset() - lastSize.x(), WindowConfiguration.INSTANCE.getyOffset(), WindowConfiguration.INSTANCE.getPreferredSize().x(), WindowConfiguration.INSTANCE.getPreferredSize().y(), 0);
+        u32.SetWindowPos(smallWindow,
+                HWND_TOPMOST,
+                WindowConfiguration.INSTANCE.getDisplayWidth() - WindowConfiguration.INSTANCE.getxOffset() - lastSize.x(),
+                WindowConfiguration.INSTANCE.getyOffset(),
+                WindowConfiguration.INSTANCE.getPreferredSize().x(),
+                WindowConfiguration.INSTANCE.getPreferredSize().y(),
+                0x0400);
     }
 }

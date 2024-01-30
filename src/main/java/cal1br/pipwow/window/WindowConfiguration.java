@@ -21,7 +21,9 @@ public enum WindowConfiguration {
     private final File file = new File(CONF_NAME);
     private int displayWidth = 1920;
     private int displayHeight = 1080;
+    //offset from right
     private int xOffset = 300;
+    //offset from top
     private int yOffset = 300;
     private double scale = 6;
     private WindowSize preferredSize;
