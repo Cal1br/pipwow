@@ -1,0 +1,42 @@
+name: Build Windows Native Executable
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  build-native-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up GraalVM (with native-image)
+        uses: graalvm/setup-graalvm@v1
+        with:
+          distribution: graalvm
+          java-version: '21'
+          components: native-image
+          cache: maven
+
+      - name: Set up MSVC (required for native-image)
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Verify tools
+        run: |
+          java -version
+          native-image --version
+
+      - name: Build native executable
+        run: mvn -Pnative -DskipTests package
+
+      - name: List output
+        run: dir target
+
+      - name: Upload .exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipwow-windows-native
+          path: target/*.exe
